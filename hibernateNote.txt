@@ -1,0 +1,59 @@
+hibernate.cfg.xml
+	<session-factory> 存在于hibernate.cfg.xml文件中
+	配置数据库连接、连接池、数据源
+	打印sql语句<property name="show_sql">true</property>
+	<property name="format_sql">true</property>
+	自动生成表结构<property name="hbm2ddl.auto">update</property>
+	
+	引入entity（表的映射文件）<mapping resource="......hbm.xml"></mapping>
+	
+表的映射文件
+	<hibernate-mapping>                 进行映射
+		<class name="" table="">        name:实体类全路径  table:对应的表
+			<id name="id" column="">    标签id代表表中id   name:实体id   column：表中的id
+			
+			</id>
+			<property></property>
+			<property></property>
+		<class>
+	<hibernate-mapping>
+	
+读取配置文件
+	读取配置文件
+	Configuration co = new Configuration().config();    名字是符合要求，否则用ocnfig(new File())
+	根据配置 创建Factory
+	SessionFactory sessionFactory = co.buildSessionFactory();
+	通过获得操作数据库的session对象
+	Session session = sessionFactory.openSession();
+	操作数据库
+	User u  = new User();
+	u.setName("...");
+	u.setPasswrd("...");
+	session.save(u);
+	关闭资源
+	session.close();
+	sessionFactory.close();
+	
+	
+	{
+		1.new Configuration().config();  默认加载hibernate.cfg.xml(位于srcxia )
+		2.new Configuration().config(file);
+		3.new Configuration().config(path);
+		4.Configuration conf = new Configuration().config();
+		  conf.addClass(User.class);   加载User.hbm.xml(映射文件名称与实体的简单类名一致；映射文件与实体在同一包)
+		  
+	}
+	
+	
+	使用getCurrentSession必须要在hibernate.cfg.xml文件中配置property
+		<property name="hibernate.current_session_context_class">thread</property>
+	
+	
+hibernate工具类
+	封装配置文件读取操作
+	封装SessionFactory创建操作
+	封装session获得操作
+	
+	
+	
+	
